@@ -14,8 +14,8 @@
 
     <!-- Custom styles for this scaffold -->
     <link href="${request.static_url('pyuploader:static/theme.css')}" rel="stylesheet">
-    <script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="${request.static_url('pyuploader:static/jquery.min.js')}"></script>
+    <script src="${request.static_url('pyuploader:static/bootstrap.min.js')}"></script>
     <script src="${request.static_url('pyuploader:static/bootstrap.file-input.js')}"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -37,24 +37,21 @@
 
     <div class="jumbotron">
       <div class="center">    
-      <h1>Тут можно загрузить файл бесплатно без регистрации без СМС!!!1</h1>
+      <h1>Сюда можно загрузить файл бесплатно без регистрации без СМС!!!1</h1>
       
-      % if len(mess) > 0:
-        <p>${mess}</p>
+      % if mess:
+        <h3>${mess|n}</h3>
       % endif
 
       <form action="/upload" method="post" accept-charset="utf-8"
             enctype="multipart/form-data">
         <div class="form-group">
-          <input type="checkbox" value=""> сохранить НАВСЕГДА!!1 (или будет удален через 30 дней)<br>
+          <input type="checkbox" name="keepforever" id="keepforever" value="keepforever"> сохранить НАВСЕГДА!!1 (или будет удален через 30 дней)<br>
           <input class="alert alert-info" data-filename-placement="inside" id="anyfile" name="anyfile" type="file" value="" title="Выберите ваш файл"/></br>
           <input type="submit" class="btn btn-default" value="Отправить" />
         </div>
       </form>
       </div>
-      <!-- Bootstrap core JavaScript
-      ================================================== -->
-      <!-- Placed at the end of the document so the pages load faster -->
     </div>
 </div>
 </div>
