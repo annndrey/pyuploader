@@ -44,8 +44,10 @@ def store_file_view(request):
             geoipfile = os.path.join(here, "static", "geoip.dat")
             gi = pygeoip.GeoIP(geoipfile)
             addrdata = gi.record_by_addr(request.remote_addr)
-
-            mailmessage = msg.format(fileurl, ", ".join([request.remote_addr,  addrdata['city'], addrdata['country_name']]))
+            if addrdata:
+                mailmessage = msg.format(fileurl, ", ".join([request.remote_addr,  addrdata['city'], addrdata['country_name']]))
+            else:
+                mailmessage = msg.format(fileurl, request.remote_addr)
             tosend = MIMEText(mailmessage, _charset="UTF-8")
             tosend['Subject'] = Header("PIGGY upload", "utf-8")
             serv.sendmail(fr, to, tosend.as_string())
